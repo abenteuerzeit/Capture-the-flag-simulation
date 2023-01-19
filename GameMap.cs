@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Text;
 using Codecool.CaptureTheFlag.Actors;
 
 namespace Codecool.CaptureTheFlag
