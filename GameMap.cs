@@ -62,28 +62,28 @@ namespace Codecool.CaptureTheFlag
 
         /// <summary>
         ///     Returns a char matrix of map's current state
-        /// </summary>Regex.Split("\r\n|\r|\n");
+        /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            var mapString = "";
+            var mapString = new StringBuilder();
             for (int i = 0; i < ActorMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < ActorMatrix.GetLength(1); j++)
                 {
-                    var currentActor = ActorMatrix[i, j];
-                    if (currentActor == null)
+                    if (ActorMatrix[i, j] == null)
                     {
-                        mapString += "..";
+                        mapString.Append(" ");
                     }
                     else
                     {
-                        mapString += currentActor.ToString();
+                        mapString.Append(ActorMatrix[i, j].GetChar());
                     }
                 }
-                mapString += "\n";
+                mapString.Append(Environment.NewLine);
             }
-            return mapString;
+            return mapString.ToString();
+
         }
 
         /// <summary>
