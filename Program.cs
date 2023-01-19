@@ -7,9 +7,9 @@ using Codecool.CaptureTheFlag;
 
 namespace Codecool.CaptureTheFlag
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Capture the flag");
 

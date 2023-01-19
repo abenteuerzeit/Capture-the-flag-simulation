@@ -27,6 +27,10 @@ namespace Codecool.CaptureTheFlag.Actors
             // Get the direction to the nearest flag
             var targetDirection = GetMoveDirection(myPosition, nearestFlagPosition);
 
+
+
+
+
             MapReference.TryMovePlayer(this, myPosition, targetDirection);
         }
 

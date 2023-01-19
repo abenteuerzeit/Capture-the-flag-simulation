@@ -66,11 +66,20 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static string GetScoreboard(this IEnumerable<Player> players)
         {
+            // Example output:
+            // Format: $"Team {player.Team} {player.Name} Points: {player.CurrentScore}";
             // Team Rock Adam Points: 20
             // Team Paper Eve Points: 10
             // Team Scissors Abel Points: 5 DEAD
 
             var scoreboard = "";
+
+            // Sort the players by team with the highest score first and then each player in that team by highest score
+            var sortedPlayers = players.GetRankedPlayers().GroupBy(player => player.Team)
+                                                       .Select(group => group.OrderByDescending(player => player.CurrentScore))
+                                                       .SelectMany(group => group);
+
+
 
             foreach (var player in players)
             {
@@ -81,7 +90,7 @@ namespace Codecool.CaptureTheFlag
                     scoreboard += " DEAD";
                 }
 
-                scoreboard += "\n";
+                scoreboard += Environment.NewLine;
             }
 
             return scoreboard;

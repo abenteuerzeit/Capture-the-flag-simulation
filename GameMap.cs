@@ -62,7 +62,7 @@ namespace Codecool.CaptureTheFlag
 
         /// <summary>
         ///     Returns a char matrix of map's current state
-        /// </summary>
+        /// </summary>Regex.Split("\r\n|\r|\n");
         /// <returns></returns>
         public override string ToString()
         {

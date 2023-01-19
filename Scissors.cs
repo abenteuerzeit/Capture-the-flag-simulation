@@ -20,10 +20,47 @@ namespace Codecool.CaptureTheFlag.Actors
             if (!Alive)
                 return;
 
+                // Team Scissors - represented by letter S. If the chosen field is occupied by a Paper, fight him. If the chosen field is occupied by a Rock, then move in the opposite direction If that position is also occupied by an enemy, fight him If moving to the opposite direction would mean walking out of map’s boundaries, then don’t move
+
             var myPosition = MapReference.GetPosition(this);
-            var nearestFlagPosition = MapReference.GetNearestFlagPosition(this);
-            var targetDirection = GetMoveDirection(myPosition, nearestFlagPosition);
-            MapReference.TryMovePlayer(this, myPosition, targetDirection);
+            var myDirection = MapReference.GetMoveDirection(this);
+            var myMap = MapReference.GetMap();
+            if (myMap == null)
+                return;
+
+            if (myMap.IsOccupied(myPosition, myDirection))
+            {
+                var otherPlayer = myMap.GetPlayer(myPosition, myDirection);
+                if (otherPlayer != null)
+                {
+                    if (otherPlayer.Team == PlayerTeam.Paper)
+                    {
+                        otherPlayer.Alive = false;
+                        KilledPlayers++;
+                    }
+                    else if (otherPlayer.Team == PlayerTeam.Rock)
+                    {
+                        var oppositeDirection = GetOppositeDirection(myDirection);
+                        if (myMap.IsOccupied(myPosition, oppositeDirection))
+                        {
+                            otherPlayer = myMap.GetPlayer(myPosition, oppositeDirection);
+                            if (otherPlayer != null)
+                            {
+                                if (otherPlayer.Team == PlayerTeam.Paper)
+                                {
+                                    otherPlayer.Alive = false;
+                                    KilledPlayers++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MapReference.TryMovePlayer(this, myPosition, oppositeDirection);
+                        }
+                    }
+                }
+            }
+
         }
 
         public override int Fight(Player otherPlayer)
